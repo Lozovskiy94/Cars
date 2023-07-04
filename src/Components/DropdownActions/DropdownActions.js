@@ -65,19 +65,26 @@ const DropdownActions = ({ car, onDelete, onEdit }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
+  
     if (name === 'price') {
       const regex = /^(?:\$)?(?:\d+\.?\d*)$/;
-
+  
       if (!value.match(regex)) {
         return;
       }
+    } else if (name === 'availability') {
+      const isAvailable = value === 'true';
+  
+      setEditedCar((prevCar) => ({
+        ...prevCar,
+        availability: isAvailable,
+      }));
+    } else {
+      setEditedCar((prevCar) => ({
+        ...prevCar,
+        [name]: value,
+      }));
     }
-
-    setEditedCar((prevCar) => ({
-      ...prevCar,
-      [name]: value
-    }));
   };
 
   return (
